@@ -82,15 +82,14 @@ print("-------------------------------------------------------------")
 
 listx1 = []
 listy1 = []
-A = []
-SUM = 0
-
 for i in stats1 :
  listx1 += [int(i)]
 
 for j in stats2:
  listy1 += [int(j)]
-
+ 
+A = []
+SUM = 0
 for i, j in zip(stats1, stats2):
     A = A + [np.multiply(int(i), int(j))]
 
@@ -101,59 +100,62 @@ for i in  A:
 
 b = 相關係數*standard_deviation2/standard_deviation1
 a = ave2-b*ave1
-'''print("\n設回歸線方程式為y=a+bx\n則 b =",b,"將兩資料平均數分別帶入可得a =" ,a,"\n可得回歸線方程式: y=",a,"+",b,"x")'''
 print("回歸線方程式: y=",a,"+",b,"x")
+
+x = np.linspace(1,100, 100)
+y = a+b*x
 
 plt.title("Does English grades effect Math grades ?",fontsize=14)
 plt.xlabel("English",fontsize=14)
 plt.ylabel("Math",fontsize=14)
 plt.xlim(0,100)
 plt.ylim(0,100)
-
-x = np.linspace(1,100, 100)
-y = a+b*x
-
 plt.plot(listx1,listy1,'r.', label='Data point')
 plt.plot(x,y, label='Linear Regression ')
 plt.legend(loc='best')
 plt.show()
-''' print(listx1)
-    print(listy1)
-    print(A)
-    print(SUM) '''
+
 print("相關係數=",相關係數)
+if 相關係數 == 0:
+    print(" 為 零相關")
 number_condition_p = "正"
 number_condition_m = "負"
 positive_number_condition = True
 while positive_number_condition == True:
-    if 相關係數*(-1)>0:
+    if 相關係數 < 0:
         positive_number_condition = False
-    elif 相關係數*(-1)<0:
+    elif 相關係數 > 0:
         positive_number_condition = True
-r_abs = abs(相關係數)
-while 1:
-    if r_abs == 0:
-        print("為 零相關")
-    elif 0<r_abs<0.3:
+        break
+r_abs = abs(np.round(相關係數, 2))
+while True:
+    if 0 < r_abs and r_abs < 0.3:
         if positive_number_condition == True :
-            print("為 低度",number_condition_p,"相關")
+            print(" 為 低度",number_condition_p,"相關")
             break
         else :
-            print("為 低度",number_condition_m,"相關")
+            print(" 為 低度",number_condition_m,"相關")
             break
-    elif 0.3<=r_abs<0.7:
+    elif 0.3 <= r_abs and r_abs < 0.7:
         if positive_number_condition == True:
-            print("為 中度",number_condition_p,"相關")
+            print(" 為 中度",number_condition_p,"相關")
             break
         else:
-            print("為 中度",number_condition_m,"相關")
+            print(" 為 中度",number_condition_m,"相關")
             break
-    elif 0.7<=r_abs<1:
+    elif 0.7<=r_abs and r_abs < 1:
         if positive_number_condition == True:
-            print("為 高度",number_condition_p,"相關")
+            print(" 為 高度",number_condition_p,"相關")
             break
         else:
-            print("為 高度",number_condition_m,"相關")
+            print(" 為 高度",number_condition_m,"相關")
+            break
+    elif r_abs == 1:
+        if positive_number_condition == True:
+            print(" 為 完全",number_condition_p,"相關")
+            break
+        elif positive_number_condition == False:
+            print(" 為 完全", number_condition_m, "相關")
             break
 print("-------------------------------------------------------------")
 print("\n分析結束")
