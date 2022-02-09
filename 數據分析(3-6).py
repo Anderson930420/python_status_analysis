@@ -88,17 +88,6 @@ for j in stats2:
  listy1 += [int(j)]
 
 
-#計算回歸線方程式
-b = (variance1**0.5)*(variance2**0.5)/variance1
-a = ave2-b*ave1
-print(" 回歸線方程式: y=",a,"+",b,"x")
-
-
-#表示出回歸線方程式
-x = np.linspace(1,100, 100)
-y = a+b*x
-
-
 #計算相關係數所需要的數值
 A = []
 SUM = 0
@@ -111,6 +100,16 @@ for i in  A:
 
 #將數值帶入公式算出相關係數
 r = (SUM-len(stats1)*ave1*ave2)/(len(A)*standard_deviation1*standard_deviation2)
+ 
+#計算回歸線方程式
+b = r*standard_deviation2/standard_deviation1
+a = ave2-b*ave1
+print(" 回歸線方程式: y=",a,"+",b,"x")
+
+
+#表示出回歸線方程式
+x = np.linspace(1,100, 100)
+y = a+b*x
 
 #繪製出散點圖+回歸線
 plt.title("Does English grades effect Math grades ?",fontsize=14)
