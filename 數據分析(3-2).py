@@ -66,9 +66,6 @@ print("平均 =",ave2)
 print("變異數 =",variance2)
 print("標準差 =",standard_deviation2)
 
-b = (variance1**0.5)*(variance2**0.5)/variance1
-a = ave2-b*ave1
-print("\n設回歸線方程式為y=a+bx\n則 b =",b,"將兩資料平均數分別帶入可得a =" ,a,"\n可得回歸線方程式: y=",a,"+",b,"x")
 listx1 = []
 listy1 = []
 A = []
@@ -85,6 +82,12 @@ for i, j in zip(stats1, stats2):
 
 for i in  A:
     SUM += int(i)
+
+相關係數 = (SUM-len(stats1)*ave1*ave2)/(len(A)*standard_deviation1*standard_deviation2)
+
+b = 相關係數*standard_deviation2/standard_deviation1
+a = ave2-b*ave1
+print("\n設回歸線方程式為y=a+bx\n則 b =",b,"將兩資料平均數分別帶入可得a =" ,a,"\n可得回歸線方程式: y=",a,"+",b,"x")
 
 plt.title("Does English grades effect Math grades ?",fontsize=16)
 plt.xlabel("English",fontsize=14)
